@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+    <div>
+        This is a test.
+    </div>
+    <canvas width="640" height="480"></canvas>
+
+    <script>
+        $(document).ready(function () {
+            $('div').text("Test is OK");
+
+            function doRender(ctx) {
+                /// <param name="ctx" type="CanvasRenderingContext2D">Canvas context</param>
+                
+            }
+
+            $('canvas').each(function () {
+                var ctx = getContext(this);
+            });
+        });
+    </script>
+</body>
+</html>
