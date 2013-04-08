@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>File API Test.</h1>
+    </header>
+
+    <article id="main">
+        <input type="file" />
+        <div id="output1"></div>
+        <div id="output2"></div>
+    </article>
+
+    <script>
+        $('input').on('change', function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onload = function (ev) {
+                //document.getElementById('output1').innerText = ev.target.result;
+                document.getElementById('output2').innerText = ev.target.result.toString();
+            };
+            var blob = file.slice(0, 1024);
+            //reader.readAsBinaryString(blob);
+
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>
