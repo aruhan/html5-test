@@ -20,14 +20,16 @@
     <script>
         (function ($) {
             $.fn.death = function (options) {
-                options = $.extend({},
-                {
-                    text: "でぃす"
-                }, options);
+                // defaults を options に統合する
+                options = $.extend({}, defaults, options);
 
                 this.append(options.text);
                 return this;
             }
+
+            var defaults = {
+                text: "でぃす"
+            };
         }(jQuery));
 
         $(document).ready(function () {
