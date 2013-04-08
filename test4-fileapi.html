@@ -3,30 +3,65 @@
 <head>
     <title></title>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js"></script>
+    <style>
+        .dragover {
+            background-color: lime
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>File API Test.</h1>
     </header>
 
-    <article id="main">
-        <input type="file" />
-        <div id="output1"></div>
-        <div id="output2"></div>
+    <article id="main" class="dropzone">
+        <p>
+            指定したファイルの先頭 1000 byte を表示します。<br>
+            ファイルをドラッグ&ドロップすることもできます。
+        </p>
+        <button>SELECT FILE</button>
+        <div id="output"></div>
     </article>
 
     <script>
-        $('input').on('change', function () {
-            var file = this.files[0];
+        function readfile(file) {
+            /// <summary></summary>
+            /// <param name="file" type="File"></param>
             var reader = new FileReader();
-            reader.onload = function (ev) {
-                //document.getElementById('output1').innerText = ev.target.result;
-                document.getElementById('output2').innerText = ev.target.result.toString();
-            };
-            var blob = file.slice(0, 1024);
-            //reader.readAsBinaryString(blob);
+            reader.onload = function (e) {
+                document.getElementById('output').innerText = e.target.result.toString();
+            }
+            var blob = file.slice(0, 1000);
+            reader.readAsBinaryString(blob);
+        }
 
-            reader.readAsText(file);
+        $('button').on('click', function () {
+            var input = document.createElement('input');
+            input.type = 'file';
+            input.onchange = function () {
+                readfile(this.files[0]);
+            };
+            input.click();
+        });
+
+        $(document).ready(function () {
+            $('.dropzone').on({
+                'dragenter': function (e) {
+                    e.preventDefault();
+                    $(this).addClass('dragover');
+                },
+                'dragleave': function (e) {
+                    $(this).removeClass('dragover');
+                },
+                'dragover': function (e) {
+                    e.preventDefault();
+                },
+                'drop': function (e) {
+                    $(this).removeClass('dragover');
+                    e.preventDefault();
+                    readfile(event.dataTransfer.files[0]);
+                },
+            });
         });
     </script>
 </body>
