@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+    <article id="main">
+        <h1>Header1</h1>
+        <h2>Header2</h2>
+        <div>Div</div>
+    </article>
+
+    <footer id="sub">
+        <h1>Header1</h1>
+        <h2>Header2</h2>
+        <div>Div</div>
+    </footer>
+
+    <script>
+        (function ($) {
+            $.fn.death = function (options) {
+                options = $.extend({},
+                {
+                    text: "でぃす"
+                }, options);
+
+                this.append(options.text);
+                return this;
+            }
+        }(jQuery));
+
+        $(document).ready(function () {
+            $('#main').children().death({ text: "なの" });
+            $('#sub').children().death();
+        });
+    </script>
+</body>
+</html>
